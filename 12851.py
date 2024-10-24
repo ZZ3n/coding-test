@@ -2,30 +2,27 @@ from collections import deque
 
 N, K = map(int, input().split())
 
-
-maxi = abs(K - N)
 result = (0, 0)
-visited = set()
+path = [0] * 100_001
+cnt = 0
 
 Q = deque()
-Q.append((N, 0))
+Q.append(N)
 
 while Q:
-    pos, sec = Q.popleft()
-    if sec > maxi:
-        continue
+    pos = Q.popleft()
 
     if pos == K:
-        maxi = sec
-        result = (sec, result[1] + 1)
+        result = path[pos]
+        cnt += 1
         continue
 
     for new_pos in [pos - 1, pos + 1, pos * 2]:
-        if 0 < pos and pos > 100_001:
+        if new_pos > 100_000 or new_pos < 0:
             continue
-        if sec + 1 > maxi:
-            continue
-        Q.append((new_pos, sec + 1))
+        if path[pos] + 1 == path[new_pos] or path[new_pos] == 0:
+            path[new_pos] = path[pos] + 1
+            Q.append(new_pos)
 
-print(result[0])
-print(result[1])
+print(result)
+print(cnt)
