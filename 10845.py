@@ -5,16 +5,24 @@ Q = deque()
 for _ in range(T):
 
     op, *others = input().split()
-    print(others)
+    # print(op,others)
+    # print(others)
     if op == "push":
         Q.append(int(others[0]))
-    elif op == "pop":
-        Q.pop(int(others[0]))
     elif op == "size":
-        len(Q)
+        print(len(Q))
+
     elif op == "empty":
-        pass
-    elif op == "front":
-        pass
-    elif op == "back":
-        pass
+        if len(Q) == 0:
+            print(1)
+        else:
+            print(0)
+    elif len(Q) == 0:
+        print(-1)
+    else:
+        if op == "pop":
+            print(Q.popleft())
+        elif op == "front":
+            print(Q[0])
+        elif op == "back":
+            print(Q[-1])
